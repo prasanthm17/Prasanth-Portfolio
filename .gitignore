@@ -1,0 +1,8 @@
+.next
+node_modules
+out
+coverage
+.env*.local
+.DS_Store
+Portfolio-2026-
+Prasanth-2026
