@@ -2,14 +2,20 @@
  * Single source of truth for the separately hosted DesignLens application.
  *
  * The portfolio never imports DesignLens code, proxies it, or frames it — it
- * only ever links out to this URL. When the variable is absent we refuse to
- * guess a production address: development falls back to localhost, production
- * surfaces a configuration message instead of a broken link.
+ * only ever links out to this URL.
+ *
+ * Resolution order: NEXT_PUBLIC_DESIGNLENS_URL, then the deployed product URL
+ * below, then localhost during development. A production build therefore always
+ * renders a working link without extra hosting configuration, while an invalid
+ * explicit value is still refused rather than linked.
  */
 
 export const DESIGNLENS_DEV_FALLBACK = "http://localhost:8080";
 
-export type DesignLensLinkSource = "env" | "dev-fallback" | "missing" | "invalid";
+/** The deployed product. Override with NEXT_PUBLIC_DESIGNLENS_URL if it moves. */
+export const DESIGNLENS_PROD_FALLBACK = "https://designlens-fyaf.onrender.com";
+
+export type DesignLensLinkSource = "env" | "prod-fallback" | "dev-fallback" | "missing" | "invalid";
 
 export type DesignLensLink = {
   /** Resolved absolute URL, or null when it must not be linked. */
@@ -55,7 +61,16 @@ export function getDesignLensLink(): DesignLensLink {
       url: DESIGNLENS_DEV_FALLBACK,
       source: "dev-fallback",
       host: new URL(DESIGNLENS_DEV_FALLBACK).hostname,
-      configured: false
+      configured: true
+    };
+  }
+
+  if (DESIGNLENS_PROD_FALLBACK) {
+    return {
+      url: DESIGNLENS_PROD_FALLBACK,
+      source: "prod-fallback",
+      host: new URL(DESIGNLENS_PROD_FALLBACK).hostname,
+      configured: true
     };
   }
 
@@ -64,10 +79,7 @@ export function getDesignLensLink(): DesignLensLink {
 
 /** Human-readable explanation shown only when a link cannot be rendered. */
 export function designLensConfigMessage(link: DesignLensLink): string | null {
-  if (link.source === "env") return null;
-  if (link.source === "dev-fallback") {
-    return "Development fallback — set NEXT_PUBLIC_DESIGNLENS_URL to point at the deployed audit app.";
-  }
+  if (link.source === "env" || link.source === "prod-fallback" || link.source === "dev-fallback") return null;
   if (link.source === "invalid") {
     return "NEXT_PUBLIC_DESIGNLENS_URL is not a valid absolute URL, so the live product is not linked.";
   }

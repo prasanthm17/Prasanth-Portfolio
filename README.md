@@ -17,9 +17,9 @@ NEXT_PUBLIC_DESIGNLENS_URL=https://designlens-fyaf.onrender.com
 | Situation | Behaviour |
 | --- | --- |
 | Variable set to a valid http(s) URL | "Explore Live Audit" and the "UX Audit Lab" nav link open it in a new tab |
-| Variable missing in development | Falls back to `http://localhost:8080` and shows a small configuration note |
-| Variable missing in production | No link is rendered; the CTA explains that the live product is not configured |
-| Variable set to something invalid | Treated as missing — never silently linked |
+| Variable missing in development | Falls back to `http://localhost:8080` |
+| Variable missing in production | Falls back to the deployed product URL compiled into `lib/designlens.ts` |
+| Variable set to something invalid | No link is rendered; the CTA explains the value is not a usable URL |
 
 Resolution lives in `lib/designlens.ts` so no component hardcodes a production URL. If the audit app is
 temporarily down, the portfolio is unaffected: links simply fail to resolve for the visitor.
