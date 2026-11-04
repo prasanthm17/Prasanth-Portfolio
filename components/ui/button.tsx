@@ -7,7 +7,7 @@ import type { ComponentPropsWithoutRef, ReactNode } from "react";
 type BaseProps = {
   children: ReactNode;
   href?: string;
-  variant?: "primary" | "secondary" | "ghost";
+  variant?: "primary" | "secondary" | "ghost" | "inverse" | "contrast";
   magnetic?: boolean;
   className?: string;
 };
@@ -23,7 +23,12 @@ export function Button({ href, variant = "primary", magnetic = true, className, 
     magnetic && "will-change-transform",
     variant === "primary" && "border-transparent bg-text text-bg hover:-translate-y-0.5 hover:bg-[#0b1220]",
     variant === "secondary" && "border-border bg-surface text-text hover:-translate-y-0.5 hover:border-text/20 hover:bg-elevated",
-    variant === "ghost" && "border-border bg-transparent text-text hover:-translate-y-0.5 hover:bg-surface"
+    variant === "ghost" && "border-border bg-transparent text-text hover:-translate-y-0.5 hover:bg-surface",
+    // For buttons placed on an inverted surface (the contact panel flips with the theme).
+    // `inverse` is the outlined treatment, `contrast` the solid one — both use the
+    // page colour so they stay legible whichever way the panel is inverted.
+    variant === "inverse" && "border-bg/30 bg-transparent text-bg hover:-translate-y-0.5 hover:border-bg/60 hover:bg-bg/10",
+    variant === "contrast" && "border-transparent bg-bg text-text hover:-translate-y-0.5 hover:bg-bg/90"
   );
 
   if (href) {

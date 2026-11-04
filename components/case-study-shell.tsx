@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Tag } from "@/components/ui/tag";
 import { CaseStudy } from "@/app/data/portfolio";
 
-export function CaseStudyShell({ caseStudy, behanceUrl }: { caseStudy: CaseStudy; behanceUrl: string }) {
+export function CaseStudyShell({ caseStudy, behanceUrl }: { caseStudy: CaseStudy; behanceUrl?: string }) {
   return (
     <article className="space-y-16 py-10 md:py-16">
       <header className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-end">
@@ -19,8 +19,13 @@ export function CaseStudyShell({ caseStudy, behanceUrl }: { caseStudy: CaseStudy
           </h1>
           <p className="max-w-3xl text-lg leading-8 text-muted md:text-xl">{caseStudy.description}</p>
           <div className="flex flex-wrap gap-3">
-            <Button href={behanceUrl} variant="secondary">
-              Open on Behance <ArrowUpRight size={16} />
+            {behanceUrl ? (
+              <Button href={behanceUrl} variant="secondary">
+                Open on Behance <ArrowUpRight size={16} />
+              </Button>
+            ) : null}
+            <Button href="/" variant="ghost">
+              Back to portfolio <ArrowUpRight size={16} />
             </Button>
           </div>
         </div>

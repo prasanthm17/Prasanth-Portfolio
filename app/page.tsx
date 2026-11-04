@@ -9,6 +9,7 @@ import { SectionHeading } from "@/components/ui/section-heading";
 import { SectionShell } from "@/components/ui/section-shell";
 import { Tag } from "@/components/ui/tag";
 import { ProjectCard } from "@/components/project-card";
+import { FeaturedDesignLens } from "@/components/featured-designlens";
 import { PageTransition } from "@/components/page-transition";
 import { SiteNav } from "@/components/site-nav";
 import { Timeline } from "@/components/timeline";
@@ -34,10 +35,10 @@ function HeroVisual() {
               <p className="text-lg font-semibold tracking-[-0.02em]">Prasanth M</p>
               <p className="mt-1 text-[11px] font-medium uppercase tracking-[0.22em] text-bg/80">AI UX Designer · Product Designer · UX Engineer</p>
               <div className="mt-3 space-y-1 text-sm leading-6 text-bg">
-                <a href={`mailto:${site.email}`} className="block text-bg/90 transition hover:text-bg">
+                <a href={`mailto:${site.email}`} className="flex min-h-6 items-center text-bg/90 transition hover:text-bg">
                   {site.email}
                 </a>
-                <a href={`tel:${site.phone.replace(/[^\d+]/g, "")}`} className="block text-bg/90 transition hover:text-bg">
+                <a href={`tel:${site.phone.replace(/[^\d+]/g, "")}`} className="flex min-h-6 items-center text-bg/90 transition hover:text-bg">
                   {site.phone}
                 </a>
               </div>
@@ -151,7 +152,7 @@ function SelectedWorkSection() {
             title="Selected Behance work."
             description="A tighter set of public projects with the strongest recruiter signal."
           />
-          <Link href={site.behance} className="inline-flex items-center gap-2 text-sm font-medium text-accent transition hover:translate-x-1">
+          <Link href={site.behance} className="inline-flex items-center gap-2 py-1.5 text-sm font-medium text-accent transition hover:translate-x-1">
             More on Behance <ArrowUpRight size={16} />
           </Link>
         </div>
@@ -365,9 +366,9 @@ function ContactSection() {
               <h2 className="mt-4 max-w-3xl text-[clamp(2.2rem,4vw,4rem)] font-semibold leading-[0.95] tracking-[-0.06em] text-bg">Have a complex product problem?</h2>
               <p className="mt-4 max-w-2xl text-base leading-7 text-bg/75 md:text-lg">Let&apos;s turn it into a clearer experience.</p>
               <div className="mt-6 flex flex-wrap gap-3">
-                <CopyEmail email={site.email} />
-                  <Button href={site.linkedin} variant="secondary">LinkedIn</Button>
-                  <Button href={site.behance} variant="ghost">Behance</Button>
+                <CopyEmail email={site.email} variant="contrast" />
+                  <Button href={site.linkedin} variant="inverse">LinkedIn</Button>
+                  <Button href={site.behance} variant="inverse">Behance</Button>
               </div>
               <div className="mt-6 space-y-2 text-sm text-bg/70">
                 <p><a href={`mailto:${site.email}`} className="underline underline-offset-4">{site.email}</a></p>
@@ -377,9 +378,9 @@ function ContactSection() {
             <div className="rounded-[2rem] border border-white/10 bg-white/5 p-6 backdrop-blur-sm">
               <p className="text-sm uppercase tracking-[0.24em] text-bg/70">Quick links</p>
               <div className="mt-5 grid gap-3">
-                <Button href={`mailto:${site.email}`} variant="primary">Email Me <Mail size={16} /></Button>
-                  <Button href={site.linkedin} variant="secondary">LinkedIn <Linkedin size={16} /></Button>
-                  <Button href={site.behance} variant="ghost">Behance <Sparkles size={16} /></Button>
+                <Button href={`mailto:${site.email}`} variant="contrast">Email Me <Mail size={16} /></Button>
+                  <Button href={site.linkedin} variant="inverse">LinkedIn <Linkedin size={16} /></Button>
+                  <Button href={site.behance} variant="inverse">Behance <Sparkles size={16} /></Button>
               </div>
             </div>
           </div>
@@ -398,9 +399,9 @@ function Footer() {
           <p className="mt-1">AI UX Designer · Product Designer · UX Engineer</p>
         </div>
         <div className="flex flex-wrap gap-4">
-          <Link href={site.linkedin}>LinkedIn</Link>
-          <Link href={site.behance}>Behance</Link>
-          <Link href={`mailto:${site.email}`}>Email</Link>
+          <Link href={site.linkedin} className="inline-flex min-h-6 items-center">LinkedIn</Link>
+          <Link href={site.behance} className="inline-flex min-h-6 items-center">Behance</Link>
+          <Link href={`mailto:${site.email}`} className="inline-flex min-h-6 items-center">Email</Link>
         </div>
         <p>Chennai, India · © 2026 Prasanth M</p>
       </div>
@@ -415,6 +416,7 @@ export default function HomePage() {
         <SiteNav />
         <Hero />
         <IntroSection />
+        <FeaturedDesignLens />
         <SelectedWorkSection />
         <SnapshotSection />
         <ExperienceSection />
