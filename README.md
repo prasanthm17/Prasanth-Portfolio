@@ -11,7 +11,7 @@ Configure the destination with a single environment variable:
 
 ```bash
 # .env.local
-NEXT_PUBLIC_DESIGNLENS_URL=https://audit.yourdomain.com
+NEXT_PUBLIC_DESIGNLENS_URL=https://designlens-fyaf.onrender.com
 ```
 
 | Situation | Behaviour |
