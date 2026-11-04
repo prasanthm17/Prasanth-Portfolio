@@ -1,3 +1,7 @@
+import { designLensProject } from "./designlens";
+
+export type ProjectType = "behance" | "portfolio-case-study" | "external-product" | "flagship";
+
 export type Project = {
   slug: string;
   title: string;
@@ -7,8 +11,17 @@ export type Project = {
   year: string;
   tags: string[];
   overview: string;
-  behanceUrl: string;
   image: string;
+  /** How the card should behave: internal case study, external product, or flagship feature. */
+  projectType: ProjectType;
+  /** Present for Behance-sourced projects. */
+  behanceUrl?: string;
+  /** Internal case-study route, when one exists. */
+  caseStudyUrl?: string;
+  /** Marks the single flagship project surfaced above the work grid. */
+  featured?: boolean;
+  /** Capability chips shown on the flagship section. */
+  capabilities?: string[];
 };
 
 export type ExperienceItem = {
@@ -75,6 +88,7 @@ export const projects: Project[] = [
     year: "Behance",
     tags: ["UI/UX", "Case Study", "Behance"],
     overview: "A public kiosk design case study shared on Behance.",
+    projectType: "behance",
     behanceUrl: "https://www.behance.net/gallery/253871927/kiosk-UIUX-case-study",
     image: "https://mir-s3-cdn-cf.behance.net/projects/max_808_webp/9cf912253871927.Y3JvcCwyNTY1LDIwMDYsMjI4LDEyMA.jpg"
   },
@@ -87,6 +101,7 @@ export const projects: Project[] = [
     year: "Behance",
     tags: ["Poster Design", "Social Media", "Behance"],
     overview: "A visual design piece shared on Behance.",
+    projectType: "behance",
     behanceUrl: "https://www.behance.net/gallery/240165613/Social-Media-Poster",
     image: "https://mir-s3-cdn-cf.behance.net/projects/max_808_webp/037a3e240165613.Y3JvcCwxMDczLDg0MCwzNDUsMA.jpg"
   },
@@ -99,6 +114,7 @@ export const projects: Project[] = [
     year: "Behance",
     tags: ["Thumbnail Design", "YouTube", "Behance"],
     overview: "A thumbnail design piece shared on Behance.",
+    projectType: "behance",
     behanceUrl: "https://www.behance.net/gallery/240165389/Youtube-Thumbnail-Design",
     image: "https://mir-s3-cdn-cf.behance.net/projects/max_808_webp/5928d3240165389.Y3JvcCw5MjAsNzIwLDAsMA.jpg"
   },
@@ -111,6 +127,7 @@ export const projects: Project[] = [
     year: "Behance",
     tags: ["Dashboard UI", "Finance", "Behance"],
     overview: "A personal finance dashboard concept shared on Behance.",
+    projectType: "behance",
     behanceUrl: "https://www.behance.net/gallery/218615621/Personal-Expense-Dashboard-UI",
     image: "https://mir-s3-cdn-cf.behance.net/projects/max_808_webp/97af87218615621.Y3JvcCwxMzAwLDEwMTYsMTYwLDEyMg.jpg"
   },
@@ -123,6 +140,7 @@ export const projects: Project[] = [
     year: "Behance",
     tags: ["Email Design", "UI/UX", "Behance"],
     overview: "A marketing experience shared as a public Behance case study.",
+    projectType: "behance",
     behanceUrl: "https://www.behance.net/gallery/218522845/Email-Marketing-UI-UX-Case-Study",
     image: "https://mir-s3-cdn-cf.behance.net/projects/max_808_webp/4a49be218522845.Y3JvcCwxMTkyLDkzMiw2Nyww.jpg"
   },
@@ -135,6 +153,7 @@ export const projects: Project[] = [
     year: "Behance",
     tags: ["Web App", "UX/UI", "Behance"],
     overview: "A leave management application case study shared on Behance.",
+    projectType: "behance",
     behanceUrl: "https://www.behance.net/gallery/215392085/Leave-Management-Application-UX-UI-Case-Study",
     image: "https://mir-s3-cdn-cf.behance.net/projects/max_808_webp/9aff45215392085.Y3JvcCwxMTkyLDkzMywxMDMsMA.png"
   },
@@ -147,6 +166,7 @@ export const projects: Project[] = [
     year: "Behance",
     tags: ["Health Tech", "Mobile UX", "Behance"],
     overview: "A health tracking case study shared on Behance.",
+    projectType: "behance",
     behanceUrl: "https://www.behance.net/gallery/215391507/Diabetes-Tracker-UI-UX-Case-Study",
     image: "https://mir-s3-cdn-cf.behance.net/projects/max_808_webp/9c5871215391507.Y3JvcCwxNjY5LDEzMDUsNjEsMA.jpg"
   },
@@ -159,6 +179,7 @@ export const projects: Project[] = [
     year: "Behance",
     tags: ["Furniture", "UI/UX", "Behance"],
     overview: "A furniture design case study shared on Behance.",
+    projectType: "behance",
     behanceUrl: "https://www.behance.net/gallery/215391151/Royal-Furniture-UI-UX-Design-Casestudy",
     image: "https://mir-s3-cdn-cf.behance.net/projects/max_808_webp/0123b4215391151.Y3JvcCwxMDIyLDgwMCw4OCww.png"
   },
@@ -171,6 +192,7 @@ export const projects: Project[] = [
     year: "Behance",
     tags: ["Redesign", "Mobile UX", "Behance"],
     overview: "A redesign case study shared on Behance.",
+    projectType: "behance",
     behanceUrl: "https://www.behance.net/gallery/211033615/Blinkit-Redesign-Case-Study",
     image: "https://mir-s3-cdn-cf.behance.net/projects/max_808_webp/4dc9eb211033615.Y3JvcCwxNjYzLDEzMDAsMCww.jpg"
   },
@@ -183,6 +205,7 @@ export const projects: Project[] = [
     year: "Behance",
     tags: ["Lifestyle", "Mobile UX", "Behance"],
     overview: "A mobile lifestyle concept shared on Behance.",
+    projectType: "behance",
     behanceUrl: "https://www.behance.net/gallery/211033127/Lifestyle-Mobile-App-UI-UX-Case-Study",
     image: "https://mir-s3-cdn-cf.behance.net/projects/max_808_webp/25a7b2211033127.Y3JvcCwyNjE4LDIwNDgsOTAsMA.png"
   },
@@ -195,6 +218,7 @@ export const projects: Project[] = [
     year: "Behance",
     tags: ["Mobile UX", "UI Design", "Behance"],
     overview: "A mobile app design shared on Behance.",
+    projectType: "behance",
     behanceUrl: "https://www.behance.net/gallery/200940907/Attactive-Mobile-App-UI-UX-Design",
     image: "https://mir-s3-cdn-cf.behance.net/projects/max_808_webp/2862fb200940907.Y3JvcCw1MzE3LDQxNTksNDQ3LDA.jpg"
   },
@@ -207,6 +231,7 @@ export const projects: Project[] = [
     year: "Behance",
     tags: ["Dashboard", "UI/UX", "Behance"],
     overview: "A dashboard app design shared on Behance.",
+    projectType: "behance",
     behanceUrl: "https://www.behance.net/gallery/199943323/Dashboard-App-UI-UX-Design",
     image: "https://mir-s3-cdn-cf.behance.net/projects/max_808_webp/b6d3e6199943323.Y3JvcCw4NDksNjY0LDI1NCwyMQ.png"
   }
@@ -545,3 +570,13 @@ export const education = [
     result: "72% — First Class"
   }
 ];
+
+/** The flagship product, surfaced above the regular work grid. */
+export const flagshipProjects: Project[] = [designLensProject];
+
+/** Every project including the flagship, used for sitemap and metadata. */
+export const allProjects: Project[] = [designLensProject, ...projects];
+
+export function getProjectBySlug(slug: string): Project | undefined {
+  return allProjects.find((project) => project.slug === slug);
+}

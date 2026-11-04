@@ -1,11 +1,13 @@
 "use client";
 
 import Link from "next/link";
-import { BriefcaseBusiness, Clock3, House, Mail, Menu, UserRound, X } from "lucide-react";
+import { usePathname } from "next/navigation";
+import { BriefcaseBusiness, Clock3, ExternalLink, Gauge, House, Mail, Menu, UserRound, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { getDesignLensLink } from "@/lib/designlens";
 
 const links = [
   { href: "home", label: "Home", icon: House },
@@ -16,6 +18,9 @@ const links = [
 ] as const;
 
 export function SiteNav() {
+  const auditLink = getDesignLensLink();
+  const pathname = usePathname();
+  const onHome = pathname === "/";
   const [open, setOpen] = useState(false);
   const [compact, setCompact] = useState(false);
   const [active, setActive] = useState<string>("home");
@@ -28,6 +33,11 @@ export function SiteNav() {
   }, []);
 
   useEffect(() => {
+    if (!onHome) {
+      setActive("");
+      return;
+    }
+
     const sectionIds = links.map((link) => link.href);
 
     const updateActiveSection = () => {
@@ -61,7 +71,7 @@ export function SiteNav() {
       window.removeEventListener("scroll", updateActiveSection);
       window.removeEventListener("resize", updateActiveSection);
     };
-  }, []);
+  }, [onHome]);
 
   return (
     <header className={cn("fixed inset-x-0 top-0 z-50 border-b border-transparent backdrop-blur-xl transition", compact && "border-border/80 bg-bg/95 shadow-[0_10px_30px_rgba(15,23,42,0.08)]") }>
@@ -89,6 +99,19 @@ export function SiteNav() {
               {label}
             </Link>
           ))}
+          {auditLink.url ? (
+            <a
+              href={auditLink.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Open the DesignLens UX Audit Lab in a new tab"
+              className="inline-flex items-center gap-2 rounded-full border border-border bg-accentSoft px-4 py-2 text-sm font-medium text-accent transition hover:-translate-y-0.5 hover:border-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
+            >
+              <Gauge size={14} aria-hidden="true" />
+              UX Audit Lab
+              <ExternalLink size={12} aria-hidden="true" />
+            </a>
+          ) : null}
           <ThemeToggle />
         </nav>
         <div className="flex items-center gap-3 lg:hidden">
@@ -103,14 +126,28 @@ export function SiteNav() {
           </button>
         </div>
       </div>
-      <div className={cn("overflow-hidden border-border bg-bg transition-[max-height,opacity] duration-500 lg:hidden", open ? "max-h-[28rem] border-t opacity-100" : "max-h-0 opacity-0")}>
-        <div className="mx-auto flex max-w-[1440px] flex-col gap-4 px-4 py-5 sm:px-6 lg:px-8">
+      <div className={cn("overflow-hidden border-border bg-bg transition-[max-height,opacity] duration-500 lg:hidden", open ? "max-h-[calc(100vh-4rem)] border-t opacity-100" : "max-h-0 opacity-0")}>
+        <div className="mx-auto flex max-w-[1440px] flex-col gap-4 overflow-y-auto px-4 py-5 sm:px-6 lg:px-8">
           {links.map(({ href, label, icon: Icon }) => (
             <Link key={href} href={`#${href}`} onClick={() => setOpen(false)} className={cn("inline-flex items-center gap-3 rounded-2xl border px-4 py-4 text-xl font-semibold tracking-[-0.04em]", active === href ? "border-text bg-text text-bg" : "border-border bg-surface text-text") }>
               <Icon size={18} />
               {label}
             </Link>
           ))}
+          {auditLink.url ? (
+            <a
+              href={auditLink.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => setOpen(false)}
+              aria-label="Open the DesignLens UX Audit Lab in a new tab"
+              className="inline-flex items-center gap-3 rounded-2xl border border-border bg-accentSoft px-4 py-4 text-xl font-semibold tracking-[-0.04em] text-accent"
+            >
+              <Gauge size={18} aria-hidden="true" />
+              UX Audit Lab
+              <ExternalLink size={16} className="ml-auto" aria-hidden="true" />
+            </a>
+          ) : null}
           <Button href="#contact" variant="secondary" className="w-fit" onClick={() => setOpen(false)}>
             Contact
           </Button>
